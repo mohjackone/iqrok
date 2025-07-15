@@ -1,0 +1,12 @@
+The QRCD dataset is distributed under the CC BY-NC-ND 4.0 License https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+For a human-readable summary of (and not a substitute for) the above CC BY-NC-ND 4.0 License, please refer to https://creativecommons.org/licenses/by-nc-nd/4.0/ 
+
+Terms & Conditions:
+- It is strictly prohibited to make any changes on the QRCD dataset, given that the answers to the questions were carefully extracted from the Holy Qur'an and then annotated by Qur'an Scholars.
+
+- Considering that there are different schools of thought in Islam, the QRCD dataset represents a sample and not all schools of thought.
+
+- Any suggestions for adding or refining the answers of existing questions (or adding new questions and answers) can be directed to the Qur'an QA 2023 organizers, who in turn must solicit the feedback of Qur'an scholars before effecting any updates on the QRCD dataset.
+
+- We note that answer spans can only be extracted from their corresponding verse-based *direct* answers in the AyaTEC dataset. Only Qur'an scholars can decide if a verse-based answer represents a *direct* or *indirect* answer to a given question. For a formal definition of a *direct* and *indirect* answer, refer to the AyaTEC paper (p 11).

@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary-color: #3F86C7;
+  --secondary-color: #4F96D7;
+  --background-color: #f8fafc;
+  --text-color: #1a202c;
+  --text-secondary: #4a5568;
+  --border-color: #e2e8f0;
+  --font-gugi: 'Gugi', system-ui;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-inter);
+}
+
+.arabic-text {
+  font-family: var(--font-amiri);
+}
+
+.heading {
+  font-family: var(--font-saira);
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 4rem;
+  }
+}
+
+@layer base {
+  :root {
+    --font-inter: var(--font-inter);
+    --font-gugi: var(--font-gugi);
+    --font-amiri: var(--font-amiri);
+  }
+}
+
+@layer utilities {
+  .font-inter {
+    font-family: var(--font-inter);
+  }
+  .font-gugi {
+    font-family: var(--font-gugi), system-ui, -apple-system, sans-serif !important;
+    font-weight: 400;
+    font-display: swap;
+    letter-spacing: 0.02em;
+  }
+  .font-arabic {
+    font-family: var(--font-amiri);
+    font-size: 1.75rem;
+    line-height: 2.5;
+    letter-spacing: 0.02em;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Base styles */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Highlight styles */
+mark {
+  background-color: #FEF08A; /* Tailwind yellow-200 */
+  color: inherit;
+  padding: 0 2px;
+  border-radius: 2px;
+  display: inline-block; /* This helps with Arabic text */
+  margin: 0 1px; /* Add slight spacing around highlighted text */
+}
+
+/* Arabic verse number styles */
+.verse-number {
+  font-family: var(--font-amiri);
+  font-size: 1.25rem;
+  color: #8B4513;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 0.5rem;
+}
+
+/* Verse separator styles */
+.verse-separator {
+  font-family: var(--font-amiri);
+  font-size: 1.5rem;
+  color: #8B4513;
+  display: inline-block;
+  margin: 0 0.5rem;
+  vertical-align: middle;
+}
+

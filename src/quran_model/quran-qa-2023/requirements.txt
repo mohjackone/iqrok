@@ -1,0 +1,12 @@
+certifi==2021.10.8
+charset-normalizer==2.0.11
+farasapy==0.0.14
+idna==3.3
+requests==2.27.1
+tqdm==4.62.3
+urllib3==1.26.8
+pandas==1.2.4
+python-terrier==0.7.1
+snowballstemmer==2.0.0
+Arabic-Stopwords==0.3
+pytrec-eval==0.5
