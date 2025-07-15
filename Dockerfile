@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     git \
     git-lfs \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Initialize git-lfs
@@ -30,5 +31,5 @@ ENV PORT=8001
 # Expose the port
 EXPOSE 8001
 
-# Run the application
-CMD ["python", "-m", "uvicorn", "quran_model.serve_quran_model:app", "--host", "0.0.0.0", "--port", "8001"] 
+# Run the application using uvicorn directly
+CMD ["uvicorn", "quran_model.serve_quran_model:app", "--host", "0.0.0.0", "--port", "8001"] 

@@ -14,7 +14,7 @@ services:
     volumes:
       - ./src/quran_model:/app/quran_model
       - ./model:/app/model
-    command: python -m uvicorn quran_model.serve_quran_model:app --host 0.0.0.0 --port 8001 --reload
+    command: uvicorn quran_model.serve_quran_model:app --host 0.0.0.0 --port 8001 --reload
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8001"]
       interval: 30s
