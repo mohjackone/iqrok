@@ -1,0 +1,32 @@
+# pip install pandas
+# pip install numpy
+# pip install pillow
+# pip install -U beautifulsoup4
+# pip install -U sentence-transformers
+# pip install requests
+# pip install openai
+# pip install sacrebleu
+# pip install tabulate
+# pip install pytrec-eval
+# pip install scipy
+# pip install bert-score
+
+pandas>=1.3.0
+numpy>=1.24.3
+pillow>=8.3.1
+beautifulsoup4>=4.9.3
+sentence-transformers>=2.2.2
+requests>=2.26.0
+openai>=1.3.5
+sacrebleu>=2.0.0
+tabulate>=0.8.9
+pytrec-eval>=0.5
+scipy>=1.7.1
+bert-score>=0.3.11
+fastapi>=0.104.1
+uvicorn>=0.24.0
+python-multipart>=0.0.5
+pydantic>=2.5.2
+torch>=2.1.0
+transformers>=4.11.0
+scikit-learn>=1.3.2
