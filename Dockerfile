@@ -4,10 +4,15 @@ FROM python:3.10-slim
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies
+# Install system dependencies and git-lfs
 RUN apt-get update && apt-get install -y \
     build-essential \
+    git \
+    git-lfs \
     && rm -rf /var/lib/apt/lists/*
+
+# Initialize git-lfs
+RUN git lfs install
 
 # Copy Python requirements
 COPY src/quran_model/requirements.txt requirements.txt
@@ -15,7 +20,7 @@ COPY src/quran_model/requirements.txt requirements.txt
 # Install Python dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the application code
+# Copy the application code and model files
 COPY src/quran_model /app/quran_model
 
 # Set environment variables
