@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     git \
     git-lfs \
     curl \
+    dos2unix \
     && rm -rf /var/lib/apt/lists/*
 
 # Initialize git-lfs
@@ -23,6 +24,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy the application code and model files
 COPY src/quran_model /app/quran_model
+
+# Convert line endings to Unix format
+RUN dos2unix /app/quran_model/quran_terjemahan_sabiq.jsonl
+
+# Ensure correct permissions
+RUN chmod 644 /app/quran_model/quran_terjemahan_sabiq.jsonl
 
 # Set environment variables
 ENV PYTHONPATH=/app
