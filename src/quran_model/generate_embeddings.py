@@ -28,7 +28,8 @@ def generate_transformer_embeddings(model_name, texts, output_file):
     
     logger.info(f"Saving embeddings to {output_file}")
     with open(output_file, 'wb') as f:
-        pickle.dump(embeddings, f)
+        # Use protocol=4 for better compatibility
+        pickle.dump(embeddings, f, protocol=4)
     
     return embeddings
 
@@ -39,26 +40,31 @@ def generate_openai_embeddings(texts, output_file):
         raise ValueError("OpenAI API key not found in environment variables")
     
     client = OpenAI(api_key=api_key)
-    embeddings = []
+    embeddings_list = []
+    batch_size = 100  # Process in smaller batches
     
     logger.info(f"Generating OpenAI embeddings for {len(texts)} texts")
-    for i, text in enumerate(texts):
+    for i in range(0, len(texts), batch_size):
+        batch = texts[i:i + batch_size]
         try:
             response = client.embeddings.create(
-                input=text,
+                input=batch,
                 model="text-embedding-ada-002"
             )
-            embeddings.append(response.data[0].embedding)
-            if (i + 1) % 100 == 0:
-                logger.info(f"Processed {i + 1} texts")
+            batch_embeddings = [data.embedding for data in response.data]
+            embeddings_list.extend(batch_embeddings)
+            logger.info(f"Processed {i + len(batch)} texts")
         except Exception as e:
-            logger.error(f"Error generating embedding for text {i}: {e}")
+            logger.error(f"Error generating embeddings for batch starting at {i}: {e}")
             raise
     
-    embeddings = np.array(embeddings)
+    # Convert to numpy array
+    embeddings = np.array(embeddings_list, dtype=np.float32)
+    
     logger.info(f"Saving embeddings to {output_file}")
     with open(output_file, 'wb') as f:
-        pickle.dump(embeddings, f)
+        # Use protocol=4 for better compatibility
+        pickle.dump(embeddings, f, protocol=4)
     
     return embeddings
 
@@ -78,26 +84,22 @@ def main():
             'firqaaa/indo-sentence-bert-base': 'embedding_korpus_1.pkl',
             'indobenchmark/indobert-base-p1': 'embedding_korpus_2.pkl',
             'msmarco-distilbert-base-tas-b': 'embedding_korpus_3.pkl',
-            'aubmindlab/bert-base-arabert': 'embedding_korpus_4.pkl'
+            'aubmindlab/bert-base-arabert': 'embedding_korpus_4.pkl',
+            'text-embedding-ada-002': 'embedding_korpus_5.pkl'
         }
         
-        # Generate embeddings for transformer models
+        # Generate embeddings for transformer models and OpenAI
         for model_name, output_file in models.items():
             output_path = current_dir / output_file
             try:
                 logger.info(f"\nProcessing model: {model_name}")
-                generate_transformer_embeddings(model_name, texts, output_path)
+                if model_name == 'text-embedding-ada-002':
+                    generate_openai_embeddings(texts, output_path)
+                else:
+                    generate_transformer_embeddings(model_name, texts, output_path)
                 logger.info(f"Successfully generated embeddings for {model_name}")
             except Exception as e:
                 logger.error(f"Error generating embeddings for {model_name}: {e}")
-        
-        # Generate OpenAI embeddings
-        try:
-            output_path = current_dir / 'embedding_korpus_5.pkl'
-            generate_openai_embeddings(texts, output_path)
-            logger.info("Successfully generated OpenAI embeddings")
-        except Exception as e:
-            logger.error(f"Error generating OpenAI embeddings: {e}")
         
         logger.info("\nEmbedding generation complete!")
         
