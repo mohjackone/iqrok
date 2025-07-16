@@ -1,9 +1,8 @@
 {
-  "extends": ["next"],
+  "extends": ["next/core-web-vitals"],
   "rules": {
     "@next/next/no-html-link-for-pages": "off",
-    "prefer-const": "error",
-    "@next/next/no-var-in-jsx": "error"
+    "prefer-const": "error"
   },
   "parserOptions": {
     "ecmaVersion": "latest",

@@ -61,7 +61,7 @@ export interface SearchResponse {
 }
 
 // Constants
-const BACKEND_URL = 'http://localhost:8001'; // Updated to use our new Quran model port
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8001';
 const REQUEST_TIMEOUT = 30000; // 30 seconds
 
 // Encoder model mappings

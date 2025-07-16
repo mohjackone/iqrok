@@ -22,7 +22,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
-    "eventsource-parser": "^3.0.2",
+    "eventsource-parser": "^3.0.3",
     "framer-motion": "^12.18.1",
     "gpt-3-encoder": "^1.1.4",
     "isomorphic-dompurify": "^2.25.0",

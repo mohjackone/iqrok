@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const BACKEND_URL = 'http://localhost:8001'; // Updated to use our new Quran model port
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8001'; // Updated to use our new Quran model port
 const REQUEST_TIMEOUT = 30000;
 
 // Helper function to normalize verse ID format

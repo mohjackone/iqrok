@@ -642,7 +642,7 @@ export default function Home() {
           
           // Calculate total related verses for matching questions
           let totalRelatedVerses = 0;
-          let relatedVersesList: Array<{surah_name: string; sura: string; aya: string}> = [];
+          const relatedVersesList: Array<{surah_name: string; sura: string; aya: string}> = [];
           
           if (data.query_parameter?.related_questions) {
             data.query_parameter.related_questions.forEach((q: RelatedQuestion) => {
