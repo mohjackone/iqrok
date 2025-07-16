@@ -28,6 +28,9 @@ COPY src/quran_model /app/quran_model
 # Generate translation file
 RUN python -m quran_model.init_quranenc
 
+# Generate embeddings
+RUN python -m quran_model.generate_embeddings
+
 # Convert line endings to Unix format (only if file exists)
 RUN if [ -f /app/quran_model/quran_terjemahan_sabiq.jsonl ]; then \
     dos2unix /app/quran_model/quran_terjemahan_sabiq.jsonl; \
