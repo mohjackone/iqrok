@@ -432,11 +432,10 @@ def calculate_relevancy(query: str, gold_questions: Dict[str, str]) -> tuple[Dic
 
 @app.get("/")
 async def health_check():
-    """Health check endpoint that returns available encoders"""
+    """Simple health check endpoint"""
     return {
         "status": "ok",
-        "model": "quran-search-rank",
-        "available_encoders": list(ENCODER_MODELS.keys())
+        "service": "quran-search-rank"
     }
 
 @app.post("/api/search", response_model=QuranSearchResponse)

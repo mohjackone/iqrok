@@ -24,6 +24,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the application code and model files
 COPY src/quran_model /app/quran_model
 
+# Verify embedding files exist
+RUN python -c 'import os; \
+    files = ["embedding_korpus_" + str(i) + ".pkl" for i in range(1, 6)]; \
+    missing = [f for f in files if not os.path.exists(os.path.join("/app/quran_model", f))]; \
+    assert not missing, f"Missing embedding files: {missing}"'
+
 # Set environment variables
 ENV PYTHONPATH=/app
 ENV PORT=8001

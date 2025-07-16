@@ -36,11 +36,7 @@ ENV/
 node_modules
 npm-debug.log
 
-# Project specific - Keep model files
-# *.pkl
-# *.model
-# *.bin
-# model_cache/
-# embeddings/
-# data/
-# *.jsonl 
+# Keep all model files and data
+!src/quran_model/*.pkl
+!src/quran_model/embedding_korpus_*.pkl
+!src/quran_model/quran_terjemahan_sabiq.jsonl 
