@@ -32,4 +32,4 @@ ENV PORT=8001
 EXPOSE 8001
 
 # Run the application using uvicorn directly
-CMD ["uvicorn", "quran_model.serve_quran_model:app", "--host", "0.0.0.0", "--port", "8001"] 
+CMD ["sh", "-c", "uvicorn quran_model.serve_quran_model:app --host 0.0.0.0 --port $PORT"] 

@@ -36,11 +36,11 @@ ENV/
 node_modules
 npm-debug.log
 
-# Project specific
-*.pkl
-*.model
-*.bin
-model_cache/
-embeddings/
-data/
-*.jsonl 
+# Project specific - Keep model files
+# *.pkl
+# *.model
+# *.bin
+# model_cache/
+# embeddings/
+# data/
+# *.jsonl 
