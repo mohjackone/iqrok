@@ -4,7 +4,7 @@ dockerfilePath = "Dockerfile"
 buildCommand = "git lfs pull"
 
 [deploy]
-startCommand = "uvicorn quran_model.serve_quran_model:app --host 0.0.0.0 --port $PORT"
+startCommand = "uvicorn quran_model.serve_quran_model:app --host 0.0.0.0 --port 8001"
 healthcheckPath = "/"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"
