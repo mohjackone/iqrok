@@ -28,8 +28,15 @@ COPY src/quran_model /app/quran_model
 # Generate translation file
 RUN python -m quran_model.init_quranenc
 
+# Build ARG for OpenAI API key
+ARG OPENAI_API_KEY
+ENV OPENAI_API_KEY=${OPENAI_API_KEY}
+
 # Generate embeddings
 RUN python -m quran_model.generate_embeddings
+
+# Remove OpenAI API key from environment after generating embeddings
+ENV OPENAI_API_KEY=""
 
 # Convert line endings to Unix format (only if file exists)
 RUN if [ -f /app/quran_model/quran_terjemahan_sabiq.jsonl ]; then \
