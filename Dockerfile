@@ -25,11 +25,18 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the application code and model files
 COPY src/quran_model /app/quran_model
 
-# Convert line endings to Unix format
-RUN dos2unix /app/quran_model/quran_terjemahan_sabiq.jsonl
+# Generate translation file
+RUN python -m quran_model.init_quranenc
 
-# Ensure correct permissions
-RUN chmod 644 /app/quran_model/quran_terjemahan_sabiq.jsonl
+# Convert line endings to Unix format (only if file exists)
+RUN if [ -f /app/quran_model/quran_terjemahan_sabiq.jsonl ]; then \
+    dos2unix /app/quran_model/quran_terjemahan_sabiq.jsonl; \
+    fi
+
+# Ensure correct permissions (only if file exists)
+RUN if [ -f /app/quran_model/quran_terjemahan_sabiq.jsonl ]; then \
+    chmod 644 /app/quran_model/quran_terjemahan_sabiq.jsonl; \
+    fi
 
 # Set environment variables
 ENV PYTHONPATH=/app
