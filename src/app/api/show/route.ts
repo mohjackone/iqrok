@@ -124,9 +124,22 @@ export async function POST(request: Request) {
     
   } catch (error) {
     console.error('Error in show API:', error);
+    let errorMessage = 'Terjadi kesalahan saat memuat detail ayat';
+    let statusCode = 500;
+
+    if (error instanceof Error) {
+      if (error.message.includes('Failed to fetch')) {
+        errorMessage = 'Tidak dapat terhubung ke server pencarian. Silakan coba lagi nanti.';
+        statusCode = 503;
+      } else if (error.message.includes('Invalid verse ID')) {
+        errorMessage = 'Format ID ayat tidak valid';
+        statusCode = 400;
+      }
+    }
+
     return NextResponse.json(
-      { error: 'Terjadi kesalahan saat memuat detail ayat' },
-      { status: 500 }
+      { error: errorMessage },
+      { status: statusCode }
     );
   }
 }
