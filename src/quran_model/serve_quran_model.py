@@ -456,11 +456,12 @@ async def search_quran(request: QuranSearchRequest):
         # Handle verse lookup differently
         if request.search_type == 'verse':
             try:
-                # Parse verse ID (format: surah:ayah)
-                if ':' not in request.query:
+                # Extract the actual verse ID from the query
+                verse_id = request.query.replace('verse:', '')
+                if ':' not in verse_id:
                     raise ValueError("Invalid verse ID format")
                     
-                surah, ayah = request.query.split(':')
+                surah, ayah = verse_id.split(':')
                 logger.info(f"Verse lookup - Surah: {surah}, Ayah: {ayah}")
                 
                 if not surah.isdigit() or not ayah.isdigit():
@@ -470,16 +471,16 @@ async def search_quran(request: QuranSearchRequest):
                 model = get_or_initialize_model(request.encoder)
                 
                 # Search for exact verse
-                verse_results = model.search(f"verse:{request.query}", request.top_k)
+                verse_results = model.search(f"verse:{verse_id}", request.top_k)
                 logger.info(f"Verse search results: {verse_results}")
                 
                 if not verse_results:
-                    logger.warning(f"No results found for verse {request.query}")
+                    logger.warning(f"No results found for verse {verse_id}")
                     results = []
                 else:
                     results = [
                         QuranSearchResult(
-                            verse_id=request.query,
+                            verse_id=verse_id,
                             arabic_text=verse_results[0].get('arabic_text', ''),
                             translation=verse_results[0].get('text', ''),
                             search_score=verse_results[0].get('map_score', verse_results[0].get('score', 1.0)),
@@ -489,7 +490,7 @@ async def search_quran(request: QuranSearchRequest):
                             related_questions=related_questions
                         )
                     ]
-                    logger.info(f"Created verse result with verse_id: {request.query}")
+                    logger.info(f"Created verse result with verse_id: {verse_id}")
                 
                 return QuranSearchResponse(
                     results=results,

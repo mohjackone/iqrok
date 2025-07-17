@@ -5,7 +5,8 @@ const REQUEST_TIMEOUT = 30000;
 
 // Helper function to normalize verse ID format
 function normalizeVerseId(verseId: string): string {
-  const cleanId = String(verseId).trim().replace(/^0+/, '');
+  // Remove any 'verse:' prefix if present
+  const cleanId = String(verseId).replace('verse:', '').trim().replace(/^0+/, '');
   return cleanId;
 }
 
@@ -48,8 +49,8 @@ export async function POST(request: Request) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          query: `verse:${normalizedVerseId}`,
-          search_type: 'translation',
+          query: normalizedVerseId,
+          search_type: 'verse',
           top_k: 1,
           encoder: encoder || 'firqaaa/indo-sentence-bert-base'
         }),

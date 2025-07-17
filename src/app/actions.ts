@@ -35,7 +35,7 @@ async function loadQuranData() {
 
 // Helper function to normalize verse ID format
 function normalizeVerseId(sura: string | number, aya: string | number): string {
-  return `${String(sura)}:${String(aya)}`;
+  return `${String(sura).trim().replace(/^0+/, '')}:${String(aya).trim().replace(/^0+/, '')}`;
 }
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8001';
@@ -54,10 +54,10 @@ export async function fetchVerseDetails(surah: string, verses: string): Promise<
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ 
-        query: verseId, // Just send the verse ID directly
-        search_type: 'verse', // Specify that this is a verse lookup
+        query: verseId,
+        search_type: 'verse',
         top_k: 1,
-        encoder: 'firqaaa/indo-sentence-bert-base' // Use Indo-SBERT by default
+        encoder: 'firqaaa/indo-sentence-bert-base'
       }),
     });
 
